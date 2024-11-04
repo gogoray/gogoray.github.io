@@ -1,5 +1,5 @@
 // URL of your JSON file
-const jsonURL = 'https://raw.githubusercontent.com/username/yoga-poses-directory/main/yoga_poses.json';
+const jsonURL = 'https://raw.githubusercontent.com/gogoray/gogoray.github.io/refs/heads/master/yoga_poses.json';
 
 // HTML elements
 const poseList = document.getElementById('pose-list');
