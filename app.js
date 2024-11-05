@@ -58,4 +58,25 @@ function addSearchFunctionality(poses) {
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const filteredPoses = poses.filter(pose =>
-            pose.english_name.toLowerCase().incl
+            pose.english_name.toLowerCase().includes(searchTerm) ||
+            (pose.pose_description && pose.pose_description.toLowerCase().includes(searchTerm))
+        );
+        displayPoses(filteredPoses);
+    });
+}
+
+// Sort functionality
+function addSortFunctionality(poses) {
+    sortSelect.addEventListener('change', () => {
+        const sortBy = sortSelect.value;
+        const sortedPoses = [...poses].sort((a, b) => {
+            if (a[sortBy] < b[sortBy]) return -1;
+            if (a[sortBy] > b[sortBy]) return 1;
+            return 0;
+        });
+        displayPoses(sortedPoses);
+    });
+}
+
+// Load data on page load
+fetchData();
