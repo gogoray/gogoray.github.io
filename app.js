@@ -1,19 +1,24 @@
-// URL of your JSON file hosted on GitHub
-const jsonURL = 'https://yoga-api-nzy4.onrender.com/v1/categories';
+// URL of the yoga poses API
+const apiURL = 'https://yoga-api-nzy4.onrender.com/v1/categories';
 
 // HTML elements
 const poseList = document.getElementById('pose-list');
 const searchInput = document.getElementById('search-input');
 const sortSelect = document.getElementById('sort-select');
 
-// Fetch data from JSON
+// Fetch data from the API
 async function fetchData() {
-    const response = await fetch(jsonURL);
-    const data = await response.json();
-    const poses = data.flatMap(category => category.poses); // Flatten categories into a single list of poses
-    displayPoses(poses);
-    addSearchFunctionality(poses);
-    addSortFunctionality(poses);
+    try {
+        const response = await fetch(apiURL);
+        const data = await response.json();
+        const poses = data.flatMap(category => category.poses); // Flatten categories into a single list of poses
+        displayPoses(poses); // Initial display
+        addSearchFunctionality(poses);
+        addSortFunctionality(poses);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        poseList.innerHTML = '<p>Error loading data. Please try again later.</p>';
+    }
 }
 
 // Display poses with all metadata
@@ -40,6 +45,7 @@ function displayPoses(poses) {
             <p><strong>Translation:</strong> ${pose.translation_name}</p>
             <p><strong>Description:</strong> ${pose.pose_description}</p>
             <p><strong>Benefits:</strong> ${pose.pose_benefits}</p>
+            <p><strong>Sanskrit Adapted Name:</strong> ${pose.sanskrit_name_adapted}</p>
         `;
         poseElement.appendChild(poseDetails);
 
@@ -52,25 +58,4 @@ function addSearchFunctionality(poses) {
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const filteredPoses = poses.filter(pose =>
-            pose.english_name.toLowerCase().includes(searchTerm) ||
-            (pose.pose_description && pose.pose_description.toLowerCase().includes(searchTerm))
-        );
-        displayPoses(filteredPoses);
-    });
-}
-
-// Sort functionality
-function addSortFunctionality(poses) {
-    sortSelect.addEventListener('change', () => {
-        const sortBy = sortSelect.value;
-        const sortedPoses = [...poses].sort((a, b) => {
-            if (a[sortBy] < b[sortBy]) return -1;
-            if (a[sortBy] > b[sortBy]) return 1;
-            return 0;
-        });
-        displayPoses(sortedPoses);
-    });
-}
-
-// Load data on page load
-fetchData();
+            pose.english_name.toLowerCase().incl
