@@ -4,11 +4,9 @@ body {
     margin: auto;
     padding: 1em;
 }
-
 h1 {
     text-align: center;
 }
-
 #search-input, #sort-select {
     display: block;
     width: 100%;
@@ -16,34 +14,13 @@ h1 {
     padding: 0.5em;
     font-size: 1em;
 }
-
 #pose-list {
     display: flex;
     flex-direction: column;
     gap: 1em;
 }
-
 .pose {
-    display: flex;
-    border: 1px solid #ddd;
     padding: 1em;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background: #f9f9f9;
-}
-
-.pose img {
-    max-width: 100px;
-    margin-right: 1em;
-}
-
-.pose-details {
-    max-width: 600px;
-}
-
-.pose h3 {
-    margin: 0;
-}
-
-.pose p {
-    margin: 0.2em 0;
 }
